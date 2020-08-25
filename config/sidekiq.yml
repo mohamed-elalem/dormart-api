@@ -1,0 +1,13 @@
+---
+
+development:
+  :concurrency: 1
+  :verbose: true
+production:
+  :concurrency: 10
+queues:
+  - mailers
+  - default
+  - low
+  - medium
+  - high
