@@ -32,3 +32,6 @@
 /config/master.key
 
 .env
+
+/coverage/*
+!/coverage/.keep
