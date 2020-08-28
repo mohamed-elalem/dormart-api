@@ -8,18 +8,20 @@
 
 require 'open-uri'
 
-def attach_avatar_image_for(user)
-  image = URI.open('https://i.pravatar.cc/600')
-  user.avatar.attach(io: image, filename: "#{SecureRandom.hex}.jpg")
+def attach_image_for(resource, key, url)
+  image = URI.open(url)
+  resource.send(key.to_sym).attach(io: image, filename: "#{SecureRandom.hex}.jpg")
 end
+
+
 
 unless Category.any?
 
   100.times do
     FactoryBot.create :shop
     FactoryBot.create :customer
-    attach_avatar_image_for Shop.last
-    attach_avatar_image_for Customer.last
+    attach_image_for(Shop.last, :avatar, 'https://i.pravatar.cc/600')
+    attach_image_for(Customer.last, :avatar, 'https://i.pravatar.cc/600')
   end
 
   puts "Created users..."
@@ -32,6 +34,7 @@ unless Category.any?
 
   1000.times do
     FactoryBot.create(:product, category: Category.find(Category.ids.sample), shop: Shop.find(Shop.ids.sample))
+    attach_image_for(Product.last, :pictures, 'https://picsum.photos/600')
   end
 
   puts "Created products..."

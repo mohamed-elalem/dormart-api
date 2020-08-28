@@ -3,6 +3,9 @@ json.rates_count product.rates.count
 json.shop do
   json.partial! 'users/user', user: product.shop
 end
+
+json.pictures product.pictures.map { |pic| polymorphic_url pic }
+
 json.category do
   json.partial! 'categories/category', category: product.category
 end

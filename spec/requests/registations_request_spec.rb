@@ -14,8 +14,10 @@ RSpec.describe('Registrations', type: :request) do
   context('customer') do
 
     it 'can register new shop' do
-      post customer_registration_path, params: { customer: user_params }
-
+      user_params[:avatar] = fixture_file_upload(File.join('spec', 'fixtures', 'images', 'test.jpg'), 'image/jpg')
+      expect {
+        post customer_registration_path, params: { customer: user_params }
+      }.to change { ActiveStorage::Attachment.count }.by(1)
       expect(response.content_type).to include('json')
       expect(response).to be_successful
       expect(response).to have_http_status(:success)
