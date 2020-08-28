@@ -34,4 +34,5 @@
 .env
 
 /coverage/*
+/coverage/.*
 !/coverage/.keep
