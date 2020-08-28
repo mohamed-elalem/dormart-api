@@ -40,7 +40,7 @@ PreCommit:
     quiet: false
   
   RuboCop:
-    enabled: true
+    enabled: false
     command: ['bundle', 'exec', 'rubocop']
   
   Brakeman:

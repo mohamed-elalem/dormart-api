@@ -49,7 +49,8 @@ class ProductsController < ApplicationController
       :price,
       :description,
       :quantity,
-      :shop_id
+      :shop_id,
+      pictures: []
     )
   end
 end

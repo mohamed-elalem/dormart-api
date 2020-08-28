@@ -9,6 +9,7 @@ require 'rspec/rails'
 
 require 'simplecov'
 SimpleCov.start
+SimpleCov.minimum_coverage 80
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -111,7 +112,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.after(:suite) do
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+  end
+
   config.include Helpers::Authentication, type: :request
   config.include Helpers::Constants
-
+  config.include ActionDispatch::TestProcess
 end

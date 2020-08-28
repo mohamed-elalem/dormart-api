@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   has_many :reviews
   has_many :rates, through: :reviews
 
+  has_many_attached :pictures
+
   def rate
     (rates.map(&:value).inject(0.0) { |sum, v| sum + v } / rates.count).round(2) || 0.0
   end

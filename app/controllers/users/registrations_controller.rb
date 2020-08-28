@@ -19,6 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         password_confirmation
         email_confirmation
         name
+        avatar
       ]
     )
   end
