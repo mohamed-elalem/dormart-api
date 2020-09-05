@@ -32,14 +32,14 @@ unless Category.any?
 
   puts "Created categories..."
 
-  1000.times do
+  100.times do
     FactoryBot.create(:product, category: Category.find(Category.ids.sample), shop: Shop.find(Shop.ids.sample))
     attach_image_for(Product.last, :pictures, 'https://picsum.photos/600')
   end
 
   puts "Created products..."
 
-  10000.times do
+  1000.times do
     begin
       FactoryBot.create(:review, product: Product.find(Product.ids.sample), customer: Customer.find(Customer.ids.sample))
     rescue Exception => ex

@@ -1,24 +1,72 @@
-# README
+# Dormart API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the API for an e-commerce app called dormart.
 
-Things you may want to cover:
+## Table of Contents
 
-* Ruby version
+- [Dormart API](#dormart-api)
+  - [Table of Contents](#table-of-contents)
+    - [Installation](#installation)
+    - [Running](#running)
+    - [Testing](#testing)
+    - [Notes](#notes)
+    - [Todo](#todo)
 
-* System dependencies
+### Installation
 
-* Configuration
+- Install postgres and configure it accordingly.
+- install redis
+- install mailcatcher gem 
+  ```bash
+  $ gem install mailcatcher
+  ```
+- Run the following
+  ```bash
+  $ rails db:create
+  $ rails db:migrate
+  $ rails db:seed
+  ```
 
-* Database creation
+- Sign overcommit
+  ```bash
+  overcommit --sign
+  ```
 
-* Database initialization
+### Running
 
-* How to run the test suite
+- run mailcatcher
+  ```bash
+  $ mailcatcher
+  ```
+- run redis
+  ```bash
+  $ redis-server
+  ```
+- run sidekiq
+  ```bash
+  $ sidekiq
+  ```
+- run rails server
+  ```bash
+  $ rails s
+  ```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Testing
 
-* Deployment instructions
+The minimum test coverage required for the code to be pushed into master is **80%**.
+This is maintained by overcommit which will not allow a commit to happen unless the code is safe.
 
-* ...
+To run the tests use the following commands.
+
+```bash
+$ rspec
+```
+
+### Notes
+
+...
+
+### Todo
+
+- [ ] Dockerize the application.
+- [ ] ...
