@@ -8,8 +8,14 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 require 'simplecov'
+require 'codecov'
+
 SimpleCov.start
 SimpleCov.minimum_coverage 80
+
+unless ENV['GITHUB_ACTIONS'].nil?
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
