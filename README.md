@@ -1,6 +1,6 @@
 # Dormart API
 
-![Build Status](https://github.com/mohamed-elalem/dormart-api/workflows/Ruby/badge.svg "Build Status") [![codecov](https://codecov.io/gh/mohamed-elalem/dormart-api/branch/master/graph/badge.svg)](https://codecov.io/gh/mohamed-elalem/dormart-api)
+![Build Status](https://github.com/mohamed-elalem/dormart-api/workflows/Ruby/badge.svg "Build Status") [![codecov](https://codecov.io/gh/mohamed-elalem/dormart-api/branch/master/graph/badge.svg?token=8AM4E1U05G)](https://codecov.io/gh/mohamed-elalem/dormart-api)
 
 
 This is the API for an e-commerce app called dormart.
