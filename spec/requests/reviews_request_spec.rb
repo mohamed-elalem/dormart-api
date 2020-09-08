@@ -5,7 +5,7 @@ RSpec.describe "Reviews", type: :request do
     let(:product) { FactoryBot.create :product }
     
     before(:each) do
-      FactoryBot.create_list(:review, 6, product: product, rate: FactoryBot.build(:rate, review: nil))  
+      6.times { FactoryBot.create(:review, product: product, rate: FactoryBot.build(:rate, review: nil)) }
     end
 
     it 'retrieves first reviews page' do

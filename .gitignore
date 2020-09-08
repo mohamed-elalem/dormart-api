@@ -36,3 +36,5 @@
 /coverage/*
 /coverage/.*
 !/coverage/.keep
+
+.idea

@@ -5,9 +5,6 @@ class ApplicationController < ActionController::API
   layout 'application'
 
   respond_to :json
-  
-  prepend_before_action :authenticate_user_by_type, unless: :devise_controller?
-
 
   def render_resource(resource)
     if resource.errors.empty?
@@ -31,8 +28,6 @@ class ApplicationController < ActionController::API
   def pundit_user
     current_shop || current_customer
   end
-
-  private
 
   def authenticate_user_by_type
     if current_shop
