@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_category
   before_action :set_product, except: %i[index create]
-  skip_before_action :authenticate_user_by_type, only: %i[index show]
+  prepend_before_action :authenticate_user_by_type, unless: :devise_controller?, except: %i[index show]
 
   def index
     @products = @category.products.page(params[:page])

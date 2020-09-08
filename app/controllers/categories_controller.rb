@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   before_action :set_category, except: %i[index create]
-  skip_before_action :authenticate_user_by_type, only: %i[index show]
   # def create
   #   @category = Category.new(category_params)
   #   if @category.save

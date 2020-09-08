@@ -18,10 +18,14 @@ class User < ApplicationRecord
 
   def strong_password
     result = Zxcvbn.test(password)
-    errors.add(:password, format_weak_password_message(result)) if result.score < PASSWORD_STRENGTH
+    errors.add(:password, format_weak_password_message(result)) if result.score < password_strength
   end
 
   def format_weak_password_message(result)
     "Password cracking time: #{result.crack_time_display}. Suggestions: #{result.feedback.suggestions.join(',')}"
+  end
+
+  def password_strength
+    PASSWORD_STRENGTH
   end
 end
