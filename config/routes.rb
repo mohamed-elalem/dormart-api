@@ -15,7 +15,9 @@ Rails.application.routes.draw do
 
     get 'me', to: 'application#me'
 
-    resource :cart, only: %i[update show destroy]
+    resource :cart, only: %i[show destroy] do
+      patch 'product', to: 'carts#add_to_cart'
+    end
 
     resources :categories, only: %i[index show create] do
       resources :products
