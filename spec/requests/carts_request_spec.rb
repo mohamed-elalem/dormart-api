@@ -1,5 +1,15 @@
 require 'rails_helper'
 
+def test_update_cart(expected_count:)
+  product = FactoryBot.create(:product)
+  expect do
+    yield(product) if block_given?
+    expect(response).to have_http_status :success
+    parsed_body = JSON.parse response.body
+    expect(parsed_body['data'].length).to eq(customer.cart.cart_products.count)
+  end.to change { customer.cart.cart_products.count }.by(expected_count)
+end
+
 RSpec.describe "Carts", type: :request do
   context '#index' do
     context 'unauthenticated' do
@@ -19,24 +29,30 @@ RSpec.describe "Carts", type: :request do
       end
 
       it 'renders cart correctly' do
-        get cart_url, headers: auth_headers_for(customer)
+        get cart_path, headers: auth_headers_for(customer)
         expect(response).to have_http_status :success
-      end
-
-      it 'updates the cart correctly' do
-        product = FactoryBot.create(:product)
-        expect do
-          put cart_url, headers: auth_headers_for(customer), params: { products: CartProduct.ids.concat([product.id]) }
-          expect(response).to have_http_status :success
-          parsed_body = JSON.parse response.body
-          expect(parsed_body['data'].length).to eq(customer.cart.cart_products.count)
-        end.to change { customer.cart.cart_products.count }.by(1)
       end
 
       it 'clears the cart correctly' do
         expect {
-          delete cart_url, headers: auth_headers_for(customer)
+          delete cart_path, headers: auth_headers_for(customer)
         }.to change { customer.cart.cart_products.count }.to 0
+      end
+
+      it 'add a product to the cart correctly' do
+        test_update_cart(expected_count: 1) do |product|
+          patch product_cart_path, headers: auth_headers_for(customer), params: { product_id: product.id, quantity: 1 }
+        end
+      end
+
+      it 'increment the quantity if the same product is added' do
+        expect do
+          test_update_cart(expected_count: 1) do |product|
+            patch product_cart_path, headers: auth_headers_for(customer), params: { product_id: product.id, quantity: 1 }
+            patch product_cart_path, headers: auth_headers_for(customer), params: { product_id: product.id, quantity: 2 }
+            expect(customer.cart.cart_products.find_by(product_id: product.id).quantity).to eq 3
+          end
+        end.to change { customer.cart.cart_products.count }.by 1
       end
     end
   end
